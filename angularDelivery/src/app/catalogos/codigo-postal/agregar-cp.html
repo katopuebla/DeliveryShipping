@@ -1,0 +1,35 @@
+<!-- <div class="col-md-3 mx-auto"> -->
+<mat-card class="rounded-2">
+  <mat-card-header>
+    <mat-card-title>
+      {{title}}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+<form>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.codigoPostal" name="codigopostal" type="number" placeholder="Codigo Postal" (change)="validarCodigoPostal($event)">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.descripcion" name="colonia" placeholder="Colonia">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.ciudad" name="ciudad" placeholder="Ciudad">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.municipio" name="municipio" placeholder="Delegación o Municipio">
+  </mat-form-field>
+  <mat-form-field>
+      <input matInput [(ngModel)]="data.estado" name="estado" placeholder="Estado">
+    </mat-form-field>
+  </form>
+</mat-card-content>
+<mat-card-actions>
+<div>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-button [hidden]="!isUpdate" (click)="updateCodigoPostal()" >Actualizar</button>
+  <button mat-button [hidden]="isUpdate" (click)="saveCodigoPostal()" >Salvar</button>
+</div>
+</mat-card-actions>
+</mat-card>
+<!-- </div> -->

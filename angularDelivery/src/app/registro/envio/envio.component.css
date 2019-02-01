@@ -1,0 +1,17 @@
+.envio-form {
+    -min-width: 50px;
+    -max-width: 500px;
+    width: 100%;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+
+  .mat-input-wrapper{
+    font-family: 'times new roman';
+  }
+
+  .mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+  }

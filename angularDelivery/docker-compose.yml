@@ -1,0 +1,9 @@
+version: '3.1'
+
+services:
+    app:
+        container_name: delivery-web
+        image: 'katopuebla/delivery-app'
+       # build: '.'
+        ports:
+            - 80:80

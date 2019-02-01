@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+    app:
+        image: 'katopuebla/express-app'
+        restart: always
+        # build: '.'
+        ports:
+            - 9002:3000
+        links:
+            - db
+    db:
+        container_name: delivery-mongodb
+        image: mongo
+        # restart: always
+        ports:
+            - 9010:27017
+        restart: always

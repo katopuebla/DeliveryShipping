@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+    web:
+       container_name: delivery-web
+       image: 'web'
+       restart: always
+       build: ./angularDelivery/
+       ports:
+            - 80:80
+       links:
+            - rest
+    rest:
+        container_name: delivery-rest
+        image: 'express'
+        restart: always
+        build: ./express/
+        # depends_on:
+        links:
+            - db
+        depends_on:
+            - db
+        ports:
+            - 3000:3000
+        networks: 
+            - backend
+    db:
+        container_name: delivery-mongodb
+        image: mongo
+        #environment:
+        #  - MONGO_DATA_DIR=/data/db
+        #  - MONGO_LOG_DIR=/dev/null
+        #volumes:
+        #   - ./data:/data/db
+        #command: mongod --smallfiles --logpath=/dev/null # --quiet
+        ports:
+           - 27017:27017
+        restart: always
+        networks: 
+            - backend
+networks:
+    backend:
+        driver: "bridge"

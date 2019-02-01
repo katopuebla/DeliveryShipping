@@ -1,0 +1,64 @@
+<div class="alert alert-success alert-dismissible" *ngIf="isSuccess">
+	<strong>Success!</strong>{{messages}}
+</div>
+<div class="alert alert-warning alert-dismissible" *ngIf="isError">
+  <strong>Success!</strong>{{messagesError}}
+</div>
+<!-- <div class="card" style="width:400px"> -->
+  <div class="ms-2 mx-auto my-auto col-sm-6 ounded">
+  <div class="card shadow">
+  <div class="card-header bg-primary text-white text-center">Entrega</div>
+  <div class="card-body">
+<form (ngSubmit)="saveReceive()" #record="ngForm">
+  <div class="form-group input-group mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text ms-4">Folio guia</span>
+        </div>
+        <div>
+        
+      </div>
+        <select (ngModelChange)="selected($event)" name="guia"  [(ngModel)]="envio.guia">
+          <option value="" disabled>Choose a guia</option>
+          <option *ngFor="let envio of envios" [ngValue]="envio.guia">{{envio.guia}}</option>
+        </select>
+      </div>
+  <div class="form-group input-group mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text">consigatario</span>
+        </div>
+        <input id="consignatario" class="form-control rounded-0" disabled="" name="name" [(ngModel)]="envio.name">
+      </div>
+  <div class="form-group input-group mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text">dirección</span>
+        </div>
+        <input id="direccion" class="form-control" disabled="" name="direction" [(ngModel)]="envio.direction">
+      </div>
+  <div class="form-group input-group mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text">persona que recibe</span>
+        </div>
+        <input id="recibe" class="form-control" placeholder="nombre completo" name="recibe" [(ngModel)]="envio.recibe" required>
+        <!-- <app-show-errors [control]="recibe"></app-show-errors> -->
+      </div>
+  <div class="form-group input-group mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text">No. Identificación</span>
+        </div>
+        <input id="identification" type="number" class="form-control" placeholder="INE, IFE, No. Pasaporte.." name="identificacion" [(ngModel)]="envio.identificacion" required>
+      </div>
+      <!-- <div>
+      <input type="file" name="photo" accept="image/*;capture=camera">
+      </div>
+      <div>
+      <input type="file" name="scan" accept="image/*" (change)="onFileChange($event)">
+      </div>
+      <div class="form-row">
+  <label>Barcode Input:</label>
+  <ngx-barcode-input></ngx-barcode-input>
+</div> -->
+  <button type="submit" class="btn btn-primary" >Entregar</button>
+</form>
+  </div>
+</div>
+</div>

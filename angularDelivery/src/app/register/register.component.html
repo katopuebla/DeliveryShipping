@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="row pt-5">
+    <!-- <div class="">
+    </div> -->
+    <div class="col-md-3 mx-auto">
+      <div mat-card class="rounded-0">
+        <div mat-card-header class="p-2 bg-primary text-white">
+          <h4 class="mb-1">Register</h4>
+        </div>
+        <div mat-card-content>
+          <form class="login-form">
+            <mat-form-field class="login-full-width">
+              <input matInput placeholder="userId" class="form-control rounded-0" name="user" [(ngModel)]="user.userId">
+            </mat-form-field>
+            <mat-form-field class="login-full-width">
+              <input matInput placeholder="name" class="form-control rounded-0" name="user" [(ngModel)]="user.name">
+            </mat-form-field>
+            <mat-form-field class="login-full-width">
+              <input matInput placeholder="password" class="form-control" type="password" name="password" [(ngModel)]="user.password">
+            </mat-form-field>
+            <p>
+              <button class="btn btn-primary" (click)="register()">
+                Aceptar
+              </button>
+            </p>
+          </form>
+        </div>
+        <div mat-card-actions>{{ message }}</div>
+      </div>
+    </div>
+  </div>
+</div>
