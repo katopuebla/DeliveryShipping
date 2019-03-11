@@ -8,19 +8,25 @@
   <mat-card-content>
 <form>
   <mat-form-field>
-    <input matInput [(ngModel)]="data.codigoPostal" name="codigopostal" type="number" placeholder="Codigo Postal" (change)="validarCodigoPostal($event)">
+    <input matInput [(ngModel)]="data.codigo_postal" name="codigopostal" type="number" placeholder="Codigo Postal" (change)="validarCodigoPostal($event)">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="data.descripcion" name="colonia" placeholder="Colonia">
+    <input matInput [(ngModel)]="data.direccion" name="direccion" placeholder="Dirección">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.colonia" name="colonia" placeholder="Colonia">
   </mat-form-field>
   <mat-form-field>
     <input matInput [(ngModel)]="data.ciudad" name="ciudad" placeholder="Ciudad">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="data.municipio" name="municipio" placeholder="Delegación o Municipio">
+    <input matInput [(ngModel)]="data.deleg_municipio" name="municipio" placeholder="Delegación o Municipio">
   </mat-form-field>
   <mat-form-field>
       <input matInput [(ngModel)]="data.estado" name="estado" placeholder="Estado">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.pais" name="pais" placeholder="País">
     </mat-form-field>
   </form>
 </mat-card-content>

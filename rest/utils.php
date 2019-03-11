@@ -69,9 +69,12 @@ function bindAllValues($prepStatement, $params)
         foreach ($params as $k => &$varName) {
             $parameterArray[$k] = &$varName;
         }
-        //print_r($parameterArray);
         call_user_func_array(array($prepStatement, 'bind_param'), $parameterArray);
-    //$prepStatement->bind_param($parameterArray);
+        if (false===$prepStatement){
+           die('bindAllValues() failed: ' . print_r($parameterArray));
+           //echo "Bad Request bindAllValues ";
+        }
+        //$prepStatement->bind_param($parameterArray);
         return $prepStatement;
     } catch (Exception $ex) {
         header("HTTP/1.1 400 Bad Request");

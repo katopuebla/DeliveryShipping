@@ -11,7 +11,7 @@ try {
         case 'GET':
             if (isset($_GET['id'])) {
                 $id = $_REQUEST['id'];
-                getById($dbConn, 'codigopostal', ' codigoPostal', $id);
+                getById($dbConn, 'codigopostal', ' codigo_postal', $id);
             } else {
                 getFullData($dbConn, 'codigopostal');
             }
@@ -24,11 +24,11 @@ try {
             break;
         case 'PUT':
             $input = $arrayBody;
-            $id = $input['codigoPostal'];
+            $id = $input['codigo_postal'];
             if (isset($_REQUEST['active'])) {
-                statusEntity($dbConn, 'codigopostal', ' codigoPostal', $id, 1);
+                statusEntity($dbConn, 'codigopostal', ' codigo_postal', $id, 1);
             } elseif (isset($_REQUEST['inactive'])) {
-                statusEntity($dbConn, 'codigopostal', ' codigoPostal', $id, 0);
+                statusEntity($dbConn, 'codigopostal', ' codigo_postal', $id, 0);
             } else {
                 updateEntity($dbConn, 'codigopostal', $input);
             }
@@ -36,11 +36,11 @@ try {
             break;
         case 'DELETE':
             $input = $arrayBody;
-            $id = $input['codigoPostal'];
+            $id = $input['codigo_postal'];
             if (isset($_REQUEST['allow'])) {
-                deleteEntity($dbConn, 'codigopostal', ' codigoPostal', $id);
+                deleteEntity($dbConn, 'codigopostal', ' codigo_postal', $id);
             } else {
-                statusEntity($dbConn, 'codigopostal', ' codigoPostal', $id, 0);
+                statusEntity($dbConn, 'codigopostal', ' codigo_postal', $id, 0);
             }
             break;
         default:

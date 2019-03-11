@@ -24,6 +24,7 @@ try {
             } elseif (isset($_REQUEST['consignatario'])) {
                 insertEntity($dbConn, 'consignatario', $input);
             } elseif (isset($_REQUEST['saveEnvio'])) {
+                //echo json_encode($input);
                 $input2['peso'] = $input['peso'];
                 $input2['alto'] = $input['alto'];
                 $input2['ancho'] = $input['ancho'];
@@ -79,7 +80,7 @@ function indexRemitente($dbConn, $input)
 {
     $entity = (array)$input['remitente'];
     if (!array_key_exists('id', $entity)) {
-        insertEntity($dbConn, 'remitente', $entity, false);
+        insertQuietEntity($dbConn, 'remitente', $entity);
         $entity['id'] = $dbConn->insert_id;
     }
     return $entity['id'];
@@ -89,7 +90,7 @@ function indexConsignatario($dbConn, $input)
 {
     $entity = (array)$input['consignatario'];
     if (!array_key_exists('id', $entity)) {
-        insertEntity($dbConn, 'consignatario', $entity, false);
+        insertQuietEntity($dbConn, 'consignatario', $entity);
         $entity['id'] = $dbConn->insert_id;
     }
     return $entity['id'];
