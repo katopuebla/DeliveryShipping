@@ -10,6 +10,8 @@ import { AuthGuard } from './_guards/auth.guards';
 import { RegisterComponent } from './register/register.component';
 import { CodigoPostalComponent } from './catalogos/codigo-postal/codigo-postal.component';
 import { AgregarDialogComponent } from './catalogos/codigo-postal/agregar-cp-component';
+import { EstatusComponent } from './catalogos/estatus/estatus.component';
+import { PerfilComponent } from './catalogos/perfil/perfil.component';
 
 
 const appRoutes: Routes = [
@@ -21,6 +23,8 @@ const appRoutes: Routes = [
   { path: 'codigoPostal', component: CodigoPostalComponent, canActivate: [AuthGuard] },
   { path: 'agregarCodigoPostal', component: AgregarDialogComponent, canActivate: [AuthGuard] },
   { path: 'about', component: AboutComponent, canActivate: [AuthGuard] },
+  { path: 'estatus', component: EstatusComponent, canActivate: [AuthGuard] },
+  { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

@@ -1,11 +1,11 @@
-<div class="container">
+<div class="container" id="alta">
   <h4> Alta de Envíos</h4>
   <form class="form-inline">
     <div class="row">
       <!-- Remitente -->
       <div class="col-6">
         <!-- <div> -->
-        <div class="shadow p-2 mb-3 bg-primary text-white-50">
+        <div class="shadow p-2 mb-3 my-bg-primary">
           <h5>Remitente</h5>
         </div>
         <!-- <div> -->
@@ -26,37 +26,41 @@
           <div class="input-group-prepend">
             <span class="input-group-text">Paterno</span>
           </div>
-          <input class="form-control" [(ngModel)]="remitente.apellido_paterno" name="origPaterno" [ngModelOptions]="{standalone: true}"
-            placeholder="Apellido paterno">
+          <input class="form-control" [(ngModel)]="remitente.apellido_paterno" name="origApellidoPaterno"
+            [ngModelOptions]="{standalone: true}" placeholder="Apellido paterno">
           <div class="input-group-prepend">
             <span class="input-group-text">Materno</span>
           </div>
-          <input class="form-control" [(ngModel)]="remitente.apellido_materno" name="origMaterno" placeholder="Apellido materno">
+          <input class="form-control" [(ngModel)]="remitente.apellido_materno" name="origApellidoMaterno" placeholder="Apellido materno">
+        </div>
+        <div class="form-group input-group-sm mb-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Dirección</span>
+          </div>
+          <input class="form-control" [(ngModel)]="remitente.direccion" name="origDireccion" placeholder="Calle numero" style="width: 80%">
         </div>
         <div class="form-group input-group-sm mb-2">
           <div class="input-group-prepend">
             <span class="input-group-text">Código Postal</span>
           </div>
-          <select class="form-control" [(ngModel)]="remitente.codigo_postal" name="oriCodigoPostal">
-            <option>6900</option>
-            <option>7200</option>
-            <option>3600</option>
-            <option>5400</option>
+          <select class="form-control" [(ngModel)]="remitente.codigo_postal" name="oriCodigoPostal" (change)="getRemitenteCodigoPostal()">
+            <option [ngValue]="zip.codigo_postal" *ngFor="let zip of listZip">{{zip.codigo_postal}}</option>
           </select>
           <div class="input-group-prepend">
             <span class="input-group-text">Municipio</span>
           </div>
-          <input id="oriMunicipio" class="form-control" placeholder="Del. o Mpio">
+          <input id="oriMunicipio" class="form-control" placeholder="Del. o Mpio" [(ngModel)]="remitente.deleg_municipio"
+            name="oriMunicipio">
         </div>
         <div class="form-group input-group-sm mb-2">
           <div class="input-group-prepend">
             <span class="input-group-text">Ciudad </span>
           </div>
-          <input id="oriCiudad" class="form-control" placeholder="Ciudad">
+          <input id="oriCiudad" class="form-control" placeholder="Ciudad" [(ngModel)]="remitente.ciudad" name="oriCiudad">
           <div class="input-group-prepend">
             <span class="input-group-text">Estado</span>
           </div>
-          <input id="oriEst" class="form-control" placeholder="Estado">
+          <input id="oriEst" class="form-control" placeholder="Estado" [(ngModel)]="remitente.estado" name="oriEstado">
         </div>
         <div class="form-group input-group-sm mb-2">
           <div class="input-group-prepend">
@@ -68,12 +72,10 @@
           </div>
           <input name="oriTelefono" type="tel" class="form-control" [(ngModel)]="remitente.telefono">
         </div>
-        <!-- </div> -->
-        <!-- </div> -->
       </div>
       <!-- Destinatario -->
       <div class="col-6">
-        <div class="shadow p-2 mb-3 bg-primary text-white-50">
+        <div class="shadow p-2 mb-3 my-bg-primary">
           <h5>Destinatario</h5>
         </div>
         <input class="form-control" [(ngModel)]="consignatario.id" name="targetId" type="hidden">
@@ -93,42 +95,43 @@
           </div>
           <input name="desPaterno" class="form-control" [(ngModel)]="consignatario.apellido_paterno" placeholder="Apellido paterno">
           <div class="input-group-prepend">
-            <span class="input-group-text">Apellidos</span>
+            <span class="input-group-text">Materno</span>
           </div>
           <input name="desMaterno" class="form-control" [(ngModel)]="consignatario.apellido_materno" placeholder="Apellido materno">
         </div>
         <div class="form-group input-group-sm mb-2">
           <div class="input-group-prepend">
+            <span class="input-group-text">Dirección</span>
+          </div>
+          <input class="form-control" [(ngModel)]="consignatario.direccion" name="desDireccion" placeholder="Calle numero" style="width: 80%">
+        </div>
+        <div class="form-group input-group-sm mb-2">
+          <div class="input-group-prepend">
             <span class="input-group-text">Código Postal</span>
           </div>
-          <select class="form-control" id="desCodigopostal" [(ngModel)]="consignatario.codigo_postal" name="desCodigopostal">
-            <option>6900</option>
-            <option>7200</option>
-            <option>3600</option>
-            <option>5400</option>
+          <select class="form-control" id="desCodigopostal" [(ngModel)]="consignatario.codigo_postal" name="desCodigoPostal" (change)="getConsignatarioCodigoPostal()">
+            <option [ngValue]="zip.codigo_postal" *ngFor="let zip of listZip">{{zip.codigo_postal}}</option>
           </select>
-          <!-- </div>
-      <div class="form-group input-group-sm mb-2"> -->
           <div class="input-group-prepend">
             <span class="input-group-text">Municipio</span>
           </div>
-          <input id="desMunicipio" class="form-control">
+          <input id="desMunicipio" class="form-control" [(ngModel)]="consignatario.deleg_municipio" name="desMunicipio">
         </div>
         <div class="form-group input-group-sm mb-2">
           <div class="input-group-prepend">
             <span class="input-group-text">Ciudad</span>
           </div>
-          <input id="desCiudad" class="form-control">
+          <input id="desCiudad" class="form-control" [(ngModel)]="consignatario.ciudad" name="desCiudad">
           <div class="input-group-prepend">
             <span class="input-group-text">Estado</span>
           </div>
-          <input id="desiEst" class="form-control">
+          <input id="desiEst" class="form-control" [(ngModel)]="consignatario.estado" name="desEstado">
         </div>
         <div class="form-group input-group-sm mb-2">
           <div class="input-group-prepend">
             <span class="input-group-text">Email</span>
           </div>
-          <input name="desEmail" type="email" class="form-control" [(ngModel)]="consignatario.email">
+          <input name="desEmail" type="email" class="form-control" [(ngModel)]="consignatario.email" name="desEmail">
           <div class="input-group-prepend">
             <span class="input-group-text">Teléfono</span>
           </div>
@@ -137,73 +140,46 @@
       </div>
       <!-- Medidas -->
       <div class="col-6">
-        <div class="shadow p-2 mb-3 bg-primary text-white-50">
+        <div class="shadow p-2 mb-3 my-bg-primary">
           <h5>Medidas</h5>
         </div>
         <div class="form-group input-group-sm mb-2">
-            <mat-radio-group name="tipoenvio" [(ngModel)]="tipoEnvio.id">
-                <mat-radio-button value="1" >sobre</mat-radio-button>
-                <mat-radio-button value="2" >paquete</mat-radio-button>
-              </mat-radio-group>
+          <mat-radio-group name="tipoenvio" [(ngModel)]="tipoEnvio.id" (change)="selectType()">
+            <mat-radio-button [value]="1">sobre</mat-radio-button>
+            <mat-radio-button [value]="2">paquete</mat-radio-button>
+          </mat-radio-group>
         </div>
         <div class="form-group input-group-sm mb-2">
           <div class="input-group-prepend">
             <span class="input-group-text">Peso</span>
           </div>
-          <input name="peso" type="number" class="form-control" [(ngModel)]="envio.peso" placeholder="0.00" style="width: 100px">
-        <!-- </div>
+          <input name="peso" type="number" class="form-control" [(ngModel)]="envio.peso" placeholder="0.00" 
+          style="width: 100px" [disabled]="isSobre">
+          <!-- </div>
         <div class="form-group input-group-sm mb-2"> -->
           <div class="input-group-prepend">
             <span class="input-group-text">Dimención</span>
           </div>
           <input matInput name="alto" type="number" class="form-control" [(ngModel)]="envio.alto" style="width: 100px"
-            placeholder="Alto">
+            placeholder="Alto" [disabled]="isSobre">
           <input matInput name="ancho" type="number" class="form-control" [(ngModel)]="envio.ancho" style="width: 100px"
-            placeholder="Ancho">
+            placeholder="Ancho" [disabled]="isSobre">
           <input matInput name="largo" type="number" class="form-control" [(ngModel)]="envio.largo" style="width: 100px"
-            placeholder="Largo">
+            placeholder="Largo" [disabled]="isSobre">
         </div>
       </div>
       <!-- Servicio -->
       <div class="col-6">
-        <div class="shadow p-2 mb-3 bg-primary text-white-50">
+        <div class="shadow p-2 mb-3 my-bg-primary">
           <h5>Servicio</h5>
         </div>
         <mat-radio-group name="tiposervicio" [(ngModel)]="tipoServicio.id">
-            <mat-radio-button value="1">Mismo día</mat-radio-button>
-            <mat-radio-button value="2">Dia siguiente</mat-radio-button>
-          </mat-radio-group>
+          <mat-radio-button [value]="1">Mismo día</mat-radio-button>
+          <mat-radio-button [value]="2">Dia siguiente</mat-radio-button>
+        </mat-radio-group>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary" (click)="salvarEnvio()">Aceptar</button>
-    <button type="reset" class="btn btn-primary" (click)="envio = {}">Limpiar</button>
+    <button type="submit" class="btn my-btn-primary" (click)="salvarEnvio()">Aceptar</button>
+    <button type="reset" class="btn my-btn-primary" (click)="envio = {}">Limpiar</button>
   </form>
-</div>
-
-<!-- The Modal dialog -->
-
-<div class="modal fade" id="dlgCreated">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Confirmado</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div>
-          <div style="text-align:center">
-          </div>
-          <div>
-            Folio de la guía: 1234567890
-          </div>
-          <div>
-            Consignatario: Nombre consignatario
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
 </div>

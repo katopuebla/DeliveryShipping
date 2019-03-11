@@ -1,2 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@font-face {
+  font-family: QR;
+  src: url(./assets/font/QR.ttf) format("truetype");
+}
+.my-bg-primary{
+    color: white ;
+    background-color: #3f51b5;
+  }
+
+  .my-btn-primary{
+    color: white ;
+    background-color: #3f51b5;
+  }
+
+  /* body {
+    padding: 2em 23em;
+    background:lightgray; 
+}*/

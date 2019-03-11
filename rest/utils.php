@@ -6,7 +6,8 @@ function connect($db)
     try {
         $host = $db['host'];
         $dbname = $db['db'];
-        $conn = $conn = new MySQLi($host, $db['username'], $db['password'], $dbname);
+        $conn = new MySQLi($host, $db['username'], $db['password'], $dbname);
+        mysqli_set_charset($conn, "utf8");
           //$conn = new PDO("mysql:host={$db['host']};dbname={$db['db']}", $db['username'], $db['password']);
 
           // set the PDO error mode to exception
@@ -57,18 +58,13 @@ function bindAllValues($prepStatement, $params)
         
         // $variableTypeString = "";
         foreach ($params as $k => &$varName) {
-            if(is_string($varName)){
-                $variableTypeString .= "s";
-            }elseif (is_double($varName)){
-                $variableTypeString .= "d";
-            }elseif (is_numeric($varName)){
-                $variableTypeString .= "i";
-            }
+            $variableTypeString .= getTipoCaracter($varName);
         }
 
         foreach ($params as $k => &$varName) {
             $parameterArray[$k] = &$varName;
         }
+
         call_user_func_array(array($prepStatement, 'bind_param'), $parameterArray);
         if (false===$prepStatement){
            die('bindAllValues() failed: ' . print_r($parameterArray));
@@ -80,5 +76,26 @@ function bindAllValues($prepStatement, $params)
         header("HTTP/1.1 400 Bad Request");
         echo "Bad Request";
     }
+}
+
+function getTipoCaracter($varName){
+    $value = "";
+    if(is_string($varName)){
+        $value = "s";
+    }elseif (is_double($varName)){
+        $value = "d";
+    }elseif (is_numeric($varName)){
+        $value = "i";
+    }elseif (is_bool($varName)){
+        $value = "i";
+        if ($varName) {
+            $varName = 1;
+        }else {
+            $varName = 0;
+        }
+    }else {
+        $value = "s";
+    }
+    return $value;
 }
 ?>

@@ -12,7 +12,7 @@ import { AgregarDialogComponent } from './agregar-cp-component';
 export class CodigoPostalComponent implements OnInit {
 
   @ViewChild('agregarModal') agregarModal: any;
-  displayedColumns: string[] = ['Cp', 'Descripción', 'Ciudad', 'Detalle', 'Editar', 'Estatus'];
+  displayedColumns: string[] = ['Cp', 'Dirección', 'Colonia', 'del/Mpio', 'Ciudad', 'Estado', 'Pais', 'Editar', 'Estatus'];
   resultsLength = 0;
 
   codigPostal: CodigoPostal = {};
@@ -26,7 +26,7 @@ export class CodigoPostalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.getListGuia()
+    this.service.listZip()
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response);
         // Tamaño de registros
@@ -44,7 +44,7 @@ export class CodigoPostalComponent implements OnInit {
   }
 
   getList() {
-    this.service.getListGuia()
+    this.service.listZip()
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response);
         this.resultsLength = this.dataSource.data.length;
@@ -72,13 +72,11 @@ export class CodigoPostalComponent implements OnInit {
   activeStatus(entity: CodigoPostal) {
     this.service.activeStatus(entity)
       .subscribe(
-        response => { },
         data => {
-          if (data.status === 200) {
-            this.getList();
-          } else {
-            this.snackBar.open(data.statusText, 'Error', { duration: 2000, });
-          }
+          this.getList();
+        },
+        err => {
+          this.snackBar.open(err.statusText, 'Error', { duration: 2000, });
         }
       );
   }
@@ -91,11 +89,7 @@ export class CodigoPostalComponent implements OnInit {
           this.getList();
         },
         data => {
-          if (data.status === 200) {
-            this.getList();
-          } else {
-            this.snackBar.open(data.statusText, 'Error', { duration: 2000, });
-          }
+          this.snackBar.open(data.statusText, 'Error', { duration: 2000, });
         }
       );
   }

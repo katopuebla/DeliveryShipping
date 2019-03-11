@@ -1,0 +1,26 @@
+<!-- <div class="col-md-3 mx-auto"> -->
+<mat-card class="rounded-2">
+  <mat-card-header>
+    <mat-card-title>
+      {{title}}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form>
+      <mat-form-field>
+        <input matInput [(ngModel)]="data.estatus_id" name="id" placeholder="Estatus Id">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [(ngModel)]="data.descripcion" name="descripcion" placeholder="Descripción">
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <div>
+      <button mat-button (click)="onCancel()">Cancelar</button>
+      <button mat-button [hidden]="!isUpdate" (click)="updateEntity()">Actualizar</button>
+      <button mat-button [hidden]="isUpdate" (click)="saveEntity()">Salvar</button>
+    </div>
+  </mat-card-actions>
+</mat-card>
+<!-- </div> -->

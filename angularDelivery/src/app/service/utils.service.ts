@@ -9,7 +9,13 @@ export class UtilsService {
 
   getUrl() {
     const origin = location.origin;
-    const url = origin.substring(0, origin.lastIndexOf(':'));
+    console.log(origin);
+    let url = 'http://c1450676.ferozo.com';
+     if ( origin.lastIndexOf(':4200') > -1 ) {
+       url = origin.substring(0, origin.lastIndexOf(':'));
+     } else {
+      url = url.substring(0, origin.lastIndexOf('prueba'));
+     }
     return url;
   }
 }

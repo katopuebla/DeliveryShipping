@@ -34,14 +34,14 @@ function disconnectDB($conexion){
 }
 
 function getArraySQL($sql){
-    //Creamos la conexión con la función anterior
+    //Creamos la conexiï¿½n con la funciï¿½n anterior
     $conexion = connectDB();
 
     //generamos la consulta
 
         mysqli_set_charset($conexion, "utf8"); //formato de datos utf8
 
-    if(!$result = mysqli_query($conexion, $sql)) die(); //si la conexión cancelar programa
+    if(!$result = mysqli_query($conexion, $sql)) die(); //si la conexiï¿½n cancelar programa
 
     $rawdata = array(); //creamos un array
 

@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { EnviosService } from '../../service/envios.service';
-import { Envio, EnvioEngrega } from '../../dto/envios';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Envio, EnvioDto } from '../../dto/envios';
 import { ShowErrorsComponent } from '../../show-errors/show-errors.component';
+import { BarecodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
+import { RecepcionService } from 'src/app/service/recepcion.service';
 
 @Component({
   selector: 'app-entrega',
@@ -10,23 +11,51 @@ import { ShowErrorsComponent } from '../../show-errors/show-errors.component';
 })
 export class EntregaComponent implements OnInit, OnDestroy {
 
+  @ViewChild(BarecodeScannerLivestreamComponent)
+  barecodeScanner: BarecodeScannerLivestreamComponent;
+
+  barcodeValue;
+  isScan = false;
+
   messages: string;
   messagesError: string;
   isSuccess = false;
   isError = false;
 
-  envio: EnvioEngrega = {};
-  envios: Envio[];
+  envio: EnvioDto = {};
+  envios: EnvioDto[];
 
-  constructor(private _service: EnviosService) { }
+  constructor(private _service: RecepcionService) { }
 
   ngOnInit() {
-    this.envios = this._service.getListGuia();
+    this.getList();
+  }
+
+  getList() {
+    this._service.getListGuia()
+      .subscribe( data => {
+        this.envios = data;
+      });
   }
 
    ngOnDestroy(): void {
 
    }
+
+   openScanner() {
+    this.barecodeScanner.start();
+    this.isScan = true;
+   }
+
+   closeScanner() {
+    this.barecodeScanner.stop();
+    this.isScan = false;
+   }
+
+   onValueChanges(result) {
+    this.barcodeValue = result.codeResult.code;
+    this.envio.guia = result.codeResult.code;
+}
 
   saveReceive() {
    /* console.log('saveReceive');

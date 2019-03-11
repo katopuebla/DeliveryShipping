@@ -19,6 +19,20 @@ export interface Envio {
     ;
 }
 
+export interface EnvioDto {
+    guia_sq_id?: string
+    ; remi_sq_id?: number
+    ; dest_sql_id?: number
+    ; tipo_envio_id?: number
+    ; tipo_servicio_id?: number
+    ; peso?: number
+    ; alto?: number
+    ; ancho?: number
+    ; largo?: number
+    ; estatus_id?: string
+    ;
+}
+
 export interface Source {
   id?: number
   ; nombre?: string
@@ -26,7 +40,7 @@ export interface Source {
   ; apellido_materno?: string
   ; direccion?: string
   ; codigo_postal?: string
-  ; deleg_municipop?: string
+  ; deleg_municipio?: string
   ; ciudad?: string
   ; estado?: string
   ; pais?: string
@@ -37,12 +51,14 @@ export interface Source {
 }
 
 export interface CodigoPostal {
-  codigoPostal?: number;
-  descripcion?: string;
+  codigo_postal?: string;
+  direccion?: string;
   colonia?: string;
+  deleg_municipio?: string;
   ciudad?: string;
-  municipio?: string;
   estado?: string;
+  pais?: string;
+  estatus?: boolean;
 }
 
 export interface TipoEnvio {

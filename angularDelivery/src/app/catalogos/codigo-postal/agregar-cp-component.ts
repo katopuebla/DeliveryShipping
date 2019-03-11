@@ -18,7 +18,7 @@ export class AgregarDialogComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: CodigoPostal) { }
 
     ngOnInit() {
-        if (this.data.codigoPostal) {
+        if (this.data.codigo_postal) {
             this.isUpdate = true;
             this.title = 'Editar Código Postal';
         } else {
@@ -37,16 +37,14 @@ export class AgregarDialogComponent implements OnInit {
  *  insertar registro.
  */
     saveCodigoPostal() {
-        if (this.data.codigoPostal > 100) {
-            console.log(this.data.codigoPostal);
-            this.service.saveCodigoPostal(this.data)
+        if ( this.data.codigo_postal) {
+            console.log(this.data.codigo_postal);
+            this.service.saveZip(this.data)
                 .subscribe(response => {
                     this.dialogRef.close(response);
                 },
                     err => {
-                        this.snackBar.open(err.statusText, 'Error', {
-                            duration: 2000,
-                        });
+                        this.snackBar.open(err.statusText, 'Error', { duration: 2000, });
                     }
                 );
         } else {
@@ -57,25 +55,18 @@ export class AgregarDialogComponent implements OnInit {
     }
 
     updateCodigoPostal() {
-        if (this.data.codigoPostal > 100) {
-            console.log(this.data.codigoPostal);
-            this.service.updateCodigoPostal(this.data)
-                .subscribe(response => {
-                    // PUT is not response
+        if (this.data.codigo_postal.length > 0) {
+            console.log(this.data.codigo_postal);
+            this.service.updateZip(this.data)
+                .subscribe(data => {
+                    console.log('PUT Request is successful ', data);
+                    this.dialogRef.close(this.data);
                 },
                     err => {
-                        if (err.status === 200) {
-                            this.dialogRef.close(this.data);
-                        } else {
-                            this.snackBar.open(err.statusText, 'Error', {
-                                duration: 2000,
-                            });
-                        }
+                        this.snackBar.open(err.statusText, 'Error', { duration: 2000, });
                     }
                 );
         }
     }
 
 }
-
-

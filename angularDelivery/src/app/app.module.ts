@@ -24,35 +24,62 @@ import { RegisterComponent } from './register/register.component';
 import { CodigoPostalComponent } from './catalogos/codigo-postal/codigo-postal.component';
 import { AgregarDialogComponent } from './catalogos/codigo-postal/agregar-cp-component';
 import { CatalogosService } from './service/catalogos.service';
-
+import { EnvioConfirmComponent } from './registro/envio/envio-confirm/envio-confirm.component';
+// Import ngx-barcode module
+import { NgxBarcodeModule } from 'ngx-barcode';
+import { BarecodeScannerLivestreamModule } from 'ngx-barcode-scanner';
+import { EstatusComponent } from './catalogos/estatus/estatus.component';
+import { EstatusDialogComponent } from './catalogos/estatus/estatus-dialog/estatus-dialog.component';
+ import { DialogComponent } from './dialog/dialog.component';
+import { PerfilComponent } from './catalogos/perfil/perfil.component';
+import { PerfilDialogComponent } from './catalogos/perfil/perfil-dialog/perfil-dialog.component';
+import { RecepcionService } from './service/recepcion.service';
 
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule,
-    routing,
-    // HttpModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    ],
-  declarations: [
-    AppComponent,
-    HelloComponent,
-    PrincipalComponent,
-    EnvioComponent,
-    LoginComponent,
-    EntregaComponent,
-    MenuComponent,
-    AboutComponent,
-    ShowErrorsComponent,
-    RegisterComponent,
-    CodigoPostalComponent,
-    AgregarDialogComponent,
-    ],
-    entryComponents: [],
-  providers: [AuthService, AuthGuard, EnviosService, CatalogosService ],
-  bootstrap: [AppComponent]
+   imports: [
+      BrowserModule,
+      FormsModule,
+      routing,
+      HttpClientModule,
+      BrowserAnimationsModule,
+      MaterialModule,
+      NgxBarcodeModule,
+      BarecodeScannerLivestreamModule
+   ],
+   declarations: [
+      AppComponent,
+      HelloComponent,
+      PrincipalComponent,
+      EnvioComponent,
+      EnvioConfirmComponent,
+      LoginComponent,
+      EntregaComponent,
+      MenuComponent,
+      AboutComponent,
+      ShowErrorsComponent,
+      RegisterComponent,
+      CodigoPostalComponent,
+      AgregarDialogComponent,
+      EstatusComponent,
+      EstatusDialogComponent
+      , PerfilComponent
+      , PerfilDialogComponent
+   ],
+   entryComponents: [
+      EnvioConfirmComponent,
+      EstatusDialogComponent
+      , PerfilDialogComponent
+   ],
+   providers: [
+      AuthService,
+      AuthGuard,
+      EnviosService,
+      CatalogosService,
+      RecepcionService
+   ],
+   bootstrap: [
+      AppComponent
+   ]
 })
 export class AppModule { }

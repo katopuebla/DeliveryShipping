@@ -7,27 +7,33 @@ import { UtilsService } from './utils.service';
 @Injectable()
 export class CatalogosService {
 
+  urlRoot = this.utils.getUrl() + '/rest/delivery/';
   url = this.utils.getUrl() + '/rest/delivery/codigoPostal.php';
+  urlEstatus = this.utils.getUrl() + '/rest/delivery/estatus.php';
   codigPostal: CodigoPostal = {};
 
   constructor(private http: HttpClient, private utils: UtilsService) {
   }
 
-  getListGuia() {
+  listZip() {
     return this.http.get<any>(this.url + '?fullData');
   }
 
-  saveCodigoPostal(entity: CodigoPostal) {
+  getZipById(cpostal) {
+    return this.http.get<any>(this.url + '?id=' + cpostal);
+  }
+
+  saveZip(entity: CodigoPostal) {
     console.log('save service');
-   if (entity.codigoPostal) {
-        return this.http.post<any>(this.url, entity);
+    if (entity.codigo_postal) {
+      return this.http.post<any>(this.url, entity);
     }
   }
 
-  updateCodigoPostal(entity: CodigoPostal) {
+  updateZip(entity: CodigoPostal) {
     console.log('update service');
-   if (entity.codigoPostal) {
-        return this.http.put<any>(this.url, entity);
+    if (entity.codigo_postal) {
+      return this.http.put<any>(this.url, entity);
     }
   }
 
@@ -37,5 +43,40 @@ export class CatalogosService {
 
   inactiveStatus(entity: CodigoPostal) {
     return this.http.put<any>(this.url + '?inactive', entity);
+  }
+
+  /************  General ************/
+
+  /**
+   *
+   * @param entityName Name Entity component by rest url
+   */
+  getEntitylist(entityName) {
+    return this.http.get<any>(this.urlRoot + entityName + '.php?fullData');
+  }
+
+  /**
+   *
+   * @param entityName Entity component name by rest url
+   * @param id Primary Key
+   */
+  getEntityById(entityName, id) {
+    return this.http.get<any>(this.urlRoot + entityName + '.php?id=' + id);
+  }
+
+  saveEntity(entityName, entity) {
+      return this.http.post<any>(this.urlRoot + entityName + '.php', entity);
+  }
+
+  updateEntity(entityName, entity) {
+      return this.http.put<any>(this.urlRoot + entityName + '.php', entity);
+  }
+
+  activeEstado(entityName, entity) {
+    return this.http.put<any>(this.urlRoot + entityName + '.php' + '?active', entity);
+  }
+
+  inactiveEstado(entityName, entity) {
+    return this.http.put<any>(this.urlRoot + entityName + '.php' + '?inactive', entity);
   }
 }

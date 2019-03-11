@@ -12,6 +12,37 @@ function getById($dbConn, $tableName, $fildName, $id)
     $result = $sql->get_result();
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+            $row = array_map('utf8_encode', $row);
+            $arrayOutput[] = $row;
+        }
+        if (count($arrayOutput) == 1) {
+            $output = $arrayOutput[0];
+        } elseif (count($arrayOutput) > 1) {
+            $output = $arrayOutput;
+        }
+        //header("HTTP/1.1 200 OK");
+        header('Content-Type: application/json');
+        echo json_encode($output);
+    } else {
+        header("HTTP/1.1 404 Not Found");
+        echo 'Not Found';
+    }
+}
+
+function getListBySql($dbConn, $query, $arrayField)
+{
+    $prepStatement = $dbConn->prepare($query);
+    if ( false===$prepStatement){
+        echo "Failed prepare created : ";  
+    }
+    if( $arrayField != null)
+        bindAllValues($prepStatement, $arrayField);
+        
+    $prepStatement->execute();
+    $result = $prepStatement->get_result();
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $row = array_map('utf8_encode', $row);
             $arrayOutput[] = $row;
         }
         if (count($arrayOutput) == 1) {
@@ -38,8 +69,8 @@ function getFullData($dbConn, $tableName)
             $output[] = $row;
         }
         //header("HTTP/1.1 200 OK");
-        header('Content-Type: application/json');
-        echo json_encode($output);
+        header('Content-Type: application/json;charset=utf-8');
+        echo json_encode($output, JSON_UNESCAPED_UNICODE);
     } else {
         header("HTTP/1.1 404 Not Found");
         echo 'Not Found';
@@ -181,4 +212,27 @@ function statusEntity($dbConn, $tableName, $fildName, $id, $status)
     }
 }
 
+function estadoEntity($dbConn, $tableName, $fildName, $id, $estado)
+{
+    try {
+        $prepStatement = $dbConn->prepare(" UPDATE $tableName  SET estado = $estado where $fildName = ? ");
+        $typeParam = getTipoCaracter($id);
+        $prepStatement->bind_param($typeParam, $id);
+        $prepStatement->execute();
+        if ($prepStatement->affected_rows > 0) {
+            header('Content-Type: application/json');
+            $response = array(
+                'estado' => 1,
+                'estado_message' => 'estado Cambiado a ' . $estado,
+                'id' => $id
+            );
+            echo json_encode($response, JSON_UNESCAPED_UNICODE);
+        } else {
+            header("HTTP/1.1 400 Bad Request");
+            echo $prepStatement->error;
+        }
+    } catch (Exception $ex) {
+        header("HTTP/1.1 500 Internal Server Error");
+    }
+}
 ?>

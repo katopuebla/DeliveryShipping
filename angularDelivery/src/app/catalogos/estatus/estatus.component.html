@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h4>Estatus</h4></div>
+    <div class="panel-body">
+      <mat-grid-list class="p-2" cols="2" rowHeight="100px">
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput class="input_sm" (keyup)="filtro($event.target.value)" placeholder="busqueda">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-mini-fab color=primary matTooltip="agregar" (click)="addDialog()">
+            <mat-icon aria-label="muestra un icono">playlist_add</mat-icon>
+          </button>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2">
+        <!-- Position Column -->
+        <ng-container matColumnDef="Estatus Id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Estatus Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.estatus_id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Descripcion">
+          <th mat-header-cell *matHeaderCellDef> Descripción </th>
+          <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Editar" >
+          <th mat-header-cell *matHeaderCellDef> Editar </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button>
+              <mat-icon aria-label="Actualizar" (click)="openDialog(element)">edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Estado">
+          <th mat-header-cell *matHeaderCellDef> Estado </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button>
+              <mat-icon aria-label="activo" *ngIf="element.estado" (click)="inactiveEstado(element)">mood</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon aria-label="inactivo" *ngIf="!element.estado" (click)="activeEstado(element)">mood_bad</mat-icon>
+            </button>
+            <!--<mat-icon aria-label="inactivo">mood_bad</mat-icon>-->
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    <!-- <div class="panel-footer">
+      <mat-paginator [length]="resultsLength" [pageSize]="5"></mat-paginator>
+    </div> -->
+  </div>
+</div>

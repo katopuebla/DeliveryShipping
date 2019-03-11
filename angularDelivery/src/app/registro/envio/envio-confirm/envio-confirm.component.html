@@ -1,0 +1,34 @@
+<div class="order-info-container" id="divToPrint">
+<h1 mat-dialog-title class="my-bg-primary">Confirmado</h1>
+<mat-dialog-content>
+  <p>
+      Folio de la guía:
+      {{data.folio}}
+  </p>
+  <p>
+      Consignatario:
+      {{data.name}}
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button type="button" (click)="print();">Print Order</button>
+</mat-dialog-actions>
+</div>
+<div [hidden]="true" id="myprinter">
+    <h1>{{data.folio}}</h1>
+    <h2>Remite</h2>
+    <p>nombre: {{data.envio.remitente.nombre}} 
+      {{data.envio.remitente.apellido_paterno}} 
+      {{data.envio.remitente.apellido_materno}} </p>
+    <p>Dirección: {{data.envio.remitente.direccion}}</p>
+    <p>Dirección: {{data.envio.remitente.ciudad}}</p>
+    <mat-divider></mat-divider>
+    <h2>destino</h2>
+    <p>nombre: {{data.envio.consignatario.nombre}} 
+      {{data.envio.consignatario.apellido_paterno}} 
+      {{data.envio.consignatario.apellido_materno}} </p>
+    <p>Dirección: {{data.envio.consignatario.direccion}}</p>
+    <p>Dirección: {{data.envio.consignatario.ciudad}}</p>
+    <mat-divider></mat-divider>
+    <ngx-barcode [bc-value]="data.folio" [bc-display-value]="true"></ngx-barcode>
+</div>
