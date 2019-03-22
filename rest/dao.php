@@ -7,7 +7,11 @@ $dbConn = connect($db);
 function getById($dbConn, $tableName, $fildName, $id)
 {
     $sql = $dbConn->prepare(" SELECT * FROM $tableName where $fildName = ? ");
-    $sql->bind_param("s", $id);
+    if(is_int($id))
+        $sql->bind_param("i", $id);
+    else 
+        $sql->bind_param("s", $id);
+
     $sql->execute();
     $result = $sql->get_result();
     if ($result->num_rows > 0) {
