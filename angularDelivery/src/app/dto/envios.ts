@@ -8,8 +8,8 @@ export interface EnvioEngrega {
 }
 export interface Envio {
     guia?: string
-    ; remitente?: Source
-    ; consignatario?: Source
+    ; remitente?: Sources
+    ; consignatario?: Sources
     ; tipo_envio?: TipoEnvio
     ; tipo_servicio?: TipoServicio
     ; peso?: number
@@ -33,7 +33,7 @@ export interface EnvioDto {
     ;
 }
 
-export interface Source {
+export interface Sources {
   id?: number
   ; nombre?: string
   ; apellido_paterno?: string
