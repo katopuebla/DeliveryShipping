@@ -23,6 +23,9 @@ try {
                 $arrayQuery = [];
                 getListBySql($dbConn, ' select * FROM envio WHERE estatus_id = "origen"'
                     , $arrayQuery);
+            } else if (isset($_GET['dest_sq_id'])) {
+                $id = $_REQUEST['dest_sq_id'];
+                getById($dbConn, 'consignatario', 'dest_sq_id', $id);
             } else {
                 getFullData($dbConn, $table);
             }

@@ -19,9 +19,9 @@
         <div>
         
       </div>
-        <select (ngModelChange)="selected($event)" name="guia"  [(ngModel)]="envio">
+        <select (ngModelChange)="selected($event)" name="guia"  [(ngModel)]="envioentrega.guia">
           <option value="" disabled>Choose a guia</option>
-          <option *ngFor="let envio of envios" [ngValue]="envio">{{envio.guia_sq_id}}</option>
+          <option *ngFor="let envio of envios" [ngValue]="envio.guia_sq_id">{{envio.guia_sq_id}}</option>
         </select>
         <button mat-button *ngIf="!isScan" (click)="openScanner()"><mat-icon>visibility</mat-icon></button>
         <button mat-button *ngIf="isScan" (click)="closeScanner()"><mat-icon>visibility_off</mat-icon></button>
@@ -32,26 +32,28 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">consigatario</span>
         </div>
-        <input id="consignatario" class="form-control rounded-0" disabled="" name="name" [(ngModel)]="envio.dest_sql_id">
+        <input id="consigeeName" class="form-control rounded-0" disabled="" name="name" [(ngModel)]="consignatario.nombre">
+        <input id="consigeePaternt" class="form-control rounded-0" disabled="" name="paternt" [(ngModel)]="consignatario.apellido_paterno">
+        <input id="consigeeMaternt" class="form-control rounded-0" disabled="" name="maternt" [(ngModel)]="consignatario.apellido_materno">
       </div>
   <div class="form-group input-group mb-2">
 				<div class="input-group-prepend">
 					<span class="input-group-text">dirección</span>
         </div>
-        <input id="direccion" class="form-control" disabled="" name="direction" [(ngModel)]="envio.direction">
+        <input id="direccion" class="form-control" disabled="" name="direction" [(ngModel)]="consignatario.direccion">
       </div>
   <div class="form-group input-group mb-2">
 				<div class="input-group-prepend">
 					<span class="input-group-text">persona que recibe</span>
         </div>
-        <input id="recibe" class="form-control" placeholder="nombre completo" name="recibe" [(ngModel)]="envio.recibe" required>
+        <input id="recibe" class="form-control" placeholder="nombre completo" name="recibe" [(ngModel)]="envioentrega.recibe" required>
         <!-- <app-show-errors [control]="recibe"></app-show-errors> -->
       </div>
   <div class="form-group input-group mb-2">
 				<div class="input-group-prepend">
 					<span class="input-group-text">No. Identificación</span>
         </div>
-        <input id="identification" type="number" class="form-control" placeholder="INE, IFE, No. Pasaporte.." name="identificacion" [(ngModel)]="envio.identificacion" required>
+        <input id="identification" type="number" class="form-control" placeholder="INE, IFE, No. Pasaporte.." name="identificacion" [(ngModel)]="envioentrega.identificacion" required>
       </div>
       <!-- <div>
       <input type="file" name="photo" accept="image/*;capture=camera">

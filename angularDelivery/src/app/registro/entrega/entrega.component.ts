@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Envio, EnvioDto } from '../../dto/envios';
+import { EnvioDto, Sources, EnvioEngrega } from '../../dto/envios';
 import { ShowErrorsComponent } from '../../show-errors/show-errors.component';
 import { BarecodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 import { RecepcionService } from 'src/app/service/recepcion.service';
@@ -22,8 +22,11 @@ export class EntregaComponent implements OnInit, OnDestroy {
   isSuccess = false;
   isError = false;
 
+  envioentrega: EnvioEngrega = {};
   envio: EnvioDto = {};
   envios: EnvioDto[];
+  consignatario: Sources = {};
+
 
   constructor(private _service: RecepcionService) { }
 
@@ -38,6 +41,12 @@ export class EntregaComponent implements OnInit, OnDestroy {
       });
   }
 
+  getConsignee(consigneeId) {
+    this._service.getConsignee(consigneeId)
+      .subscribe( data => {
+        this.consignatario = data;
+      });
+  }
    ngOnDestroy(): void {
 
    }
@@ -54,7 +63,7 @@ export class EntregaComponent implements OnInit, OnDestroy {
 
    onValueChanges(result) {
     this.barcodeValue = result.codeResult.code;
-    this.envio.guia = result.codeResult.code;
+    this.envioentrega.guia = result.codeResult.code;
 }
 
   saveReceive() {
@@ -74,23 +83,19 @@ export class EntregaComponent implements OnInit, OnDestroy {
   }
 
   selected(event) {
-   /* var guia = event;
-    console.log('changeSelect' + guia);
+   // var entrega_id = event;
+    console.log(event);
     this.isSuccess = false;
     this.isError = false;
 
-    if (this.envios) {
-      var envio = this.envios.find(x => x.guia == guia);
-      console.log('guia ' + guia);
-      if (envio) {
-        console.log('envio guia ' + envio.guia);
-        this.envio.guia = envio.guia;
-        this.envio.name = envio.consignatario.nombre;
-        this.envio.direction = envio.consignatario.direccion;
-        this.envio.recibe = '';
-        this.envio.identificacion = null;
-      }
-    }*/
+    this.envio = this.envios.find ( data => data.guia_sq_id === event );
+
+    if (this.envio) {
+      this._service.getConsignee(this.envio.dest_sql_id)
+        .subscribe( data => {
+          this.consignatario = data;
+        });
+    }
   }
 
    onFileChange(event) {

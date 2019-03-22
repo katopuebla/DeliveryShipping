@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Envio, Source } from '../dto/envios';
+import { Envio, Sources } from '../dto/envios';
 import { HttpClient } from '@angular/common/http';
 import { UtilsService } from './utils.service';
 
@@ -43,11 +43,11 @@ export class EnviosService {
     }
   }
 
-  saveOrigin(entity: Source): any {
+  saveOrigin(entity: Sources): any {
     return this.http.post<any>(this.url + '?remitente', entity);
   }
 
-  saveTarget(entity: Source): any {
+  saveTarget(entity: Sources): any {
     return this.http.post<any>(this.url + '?consignatario', entity);
   }
 

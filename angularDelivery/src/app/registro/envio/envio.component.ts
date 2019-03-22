@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Envio, Source, TipoEnvio, TipoServicio, CodigoPostal } from '../../dto/envios';
+import { Component, OnInit } from '@angular/core';
+import { Envio, TipoEnvio, TipoServicio, CodigoPostal, Sources } from '../../dto/envios';
 import { EnviosService } from 'src/app/service/envios.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { EnvioConfirmComponent } from './envio-confirm/envio-confirm.component';
@@ -15,8 +15,8 @@ export class EnvioComponent implements OnInit {
 
   env = {};
   envio: Envio = {};
-  public remitente: Source = {};
-  consignatario: Source = {};
+  public remitente: Sources = {};
+  consignatario: Sources = {};
   tipoEnvio: TipoEnvio = {};
   tipoServicio: TipoServicio = {};
   guia: string;
