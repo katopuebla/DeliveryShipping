@@ -1,0 +1,40 @@
+<mat-toolbar color="primary">
+  <div fxHide.md *ngIf="_auth.isLogin()">
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+      <button mat-button routerLink="/"><span>Delivery</span></button>
+      <button mat-button *ngIf="_auth.isLogin()" [matMenuTriggerFor]="register"><span>Registro</span></button>
+      <button mat-button *ngIf="_auth.isLogin()"><span>Maestro</span></button>
+      <button mat-button *ngIf="_auth.isLogin()" [matMenuTriggerFor]="zip"><span>Catálogos</span></button>
+      <span class="delivery-spacer"></span>
+      <button mat-button *ngIf="_auth.isLogin()" [matMenuTriggerFor]="user">
+        <mat-icon class="delivery-icon">account_circle</mat-icon>
+      </button>
+      <button mat-button *ngIf="_auth.isLogin()" [matMenuTriggerFor]="admin"><span>Administración</span></button>
+  
+      <mat-menu #register="matMenu">
+        <button mat-menu-item routerLink="/envio">Envío</button>
+        <button mat-menu-item routerLink="entrega">Entrega</button>
+      </mat-menu>
+  
+      <mat-menu #zip="matMenu">
+        <button mat-menu-item routerLink="/codigoPostal">Código Postal</button>
+      </mat-menu>
+      
+      <mat-menu #user="matMenu">
+        <button mat-menu-item routerLink="/">Perfil</button>
+        <button mat-menu-item routerLink="/about">About</button>
+        <button mat-menu-item (click)="_auth.logout()">Salir</button>
+      </mat-menu>
+  
+      <mat-menu #admin="matMenu">
+        <button mat-menu-item routerLink="/register">Alta Usuarios</button>
+        <button mat-menu-item routerLink="/perfil">Perfiles</button>
+        <button mat-menu-item routerLink="/estatus">Estatus</button>
+      </mat-menu>
+      </div>
+  
+</mat-toolbar>
