@@ -8,6 +8,7 @@ import { routing } from './app.routing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // Angular Material
 import { MaterialModule } from './material';
+ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
@@ -16,7 +17,7 @@ import { EnvioComponent } from './registro/envio/envio.component';
 import { EntregaComponent } from './registro/entrega/entrega.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './_guards/auth.guards';
-import { MenuComponent, AboutComponent } from './templates/menu/menu.component';
+import { MenuComponent } from './templates/menu/menu.component';
 import { EnviosService } from './service/envios.service';
 import { ShowErrorsComponent } from './show-errors/show-errors.component';
 import { AuthService } from './service/auth.service';
@@ -34,6 +35,8 @@ import { EstatusDialogComponent } from './catalogos/estatus/estatus-dialog/estat
 import { PerfilComponent } from './catalogos/perfil/perfil.component';
 import { PerfilDialogComponent } from './catalogos/perfil/perfil-dialog/perfil-dialog.component';
 import { RecepcionService } from './service/recepcion.service';
+import { MenuListComponent } from './templates/menuList/menuList.component';
+import { MenuBarComponent, AboutComponent } from './templates/menuBar/menuBar.component';
 
 
 @NgModule({
@@ -44,6 +47,7 @@ import { RecepcionService } from './service/recepcion.service';
       HttpClientModule,
       BrowserAnimationsModule,
       MaterialModule,
+      FlexLayoutModule,
       NgxBarcodeModule,
       BarecodeScannerLivestreamModule
    ],
@@ -65,6 +69,8 @@ import { RecepcionService } from './service/recepcion.service';
       EstatusDialogComponent
       , PerfilComponent
       , PerfilDialogComponent
+      , MenuListComponent
+      , MenuBarComponent
    ],
    entryComponents: [
       EnvioConfirmComponent,

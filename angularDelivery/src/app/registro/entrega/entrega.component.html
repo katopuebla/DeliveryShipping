@@ -2,15 +2,16 @@
 	<strong>Success!</strong>{{messages}}
 </div>
 <div class="alert alert-warning alert-dismissible" *ngIf="isError">
-  <strong>Success!</strong>{{messagesError}}
+  <strong>Error!</strong>{{messagesError}}
 </div>
 <!-- <div class="card" style="width:400px"> -->
   <div class="ms-2 mx-auto my-auto col-sm-6 ounded">
   <div class="card shadow">
   <div class="card-header my-bg-primary text-white text-center">Entrega</div>
+  <div class="spinner-border spinner-border-sm" ></div>
   <div class="card-body">
 
-
+    <mat-spinner [diameter]="40" *ngIf="isSpinner"></mat-spinner>
 <form (ngSubmit)="saveReceive()" #record="ngForm">
   <div class="form-group input-group mb-2">
 				<div class="input-group-prepend">

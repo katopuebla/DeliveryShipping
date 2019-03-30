@@ -23,15 +23,15 @@ try {
         case 'POST':
             $input = $arrayBody;
             if (isset($_GET['register'])) {
-                if ($input['userId'] != null
-                    || $input['userId'] != "") {
+                if ($input['userid'] != null
+                    || $input['userid'] != "") {
                     $input['estatus'] = 1; // se agrega un parametro estatico
                     insertEntity($dbConn, $tableName, $input);
                 } else {
                     header("HTTP/1.1 400 Bad Request");
                 }
             } else {
-                $id = $input['userId'];
+                $id = $input['userid'];
                 $sql = $dbConn->prepare(" SELECT * FROM $tableName where $primaryKey = ? ");
                 $sql->bind_param("s", $id);
                 $sql->execute();

@@ -8,6 +8,13 @@ var app = express();
 const cors = require('cors')
 app.use(cors())
 
+// setting
+app.set('port', process.env.PORT || 3000);
+
+//Middlewares
+
+//Routers
+
 app.get("/url", (req, res, next) => {
  res.json(["Tony","Lisa","Michael","Ginger","Food"]);
 });
@@ -67,5 +74,7 @@ app.delete('/items/:id', function(req, res) {
 // console.log("Server running on port 3000");
 //});
 
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);	
+// Starting
+app.listen(app.get('port'), () => {
+  console.log(`Running on http://${HOST}:${PORT}`);	
+});

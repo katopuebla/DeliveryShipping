@@ -1,3 +1,11 @@
-<app-menu></app-menu>
-<router-outlet (activate)='onActivate($event)'
-   (deactivate)='onDeactivate($event)'></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav role="navigation">
+      <app-menuList (sidenavClose)="sidenav.close()"></app-menuList>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-menuBar (sidenavToggle)="sidenav.toggle()"></app-menuBar>
+    <main>
+      <router-outlet (activate)='onActivate($event)' (deactivate)='onDeactivate($event)'></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -22,7 +22,9 @@ export class LoginComponent implements OnInit {
     this._authService.loginUser(this.user)
       .subscribe(response => {
         console.log(response);
-        sessionStorage.setItem('currentUser', response);
+        this.user = response;
+        sessionStorage.setItem('currentUser', this.user.userid );
+        sessionStorage.setItem('currentUserName', this.user.name );
         this._router.navigate(['/']);
       },
         err => {

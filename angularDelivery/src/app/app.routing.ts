@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PrincipalComponent } from './principal/principal.component';
 import { EnvioComponent } from './registro/envio/envio.component';
 import { EntregaComponent } from './registro/entrega/entrega.component';
-import { AboutComponent } from './templates/menu/menu.component';
+import { AboutComponent } from './templates/menuBar/menuBar.component';
 // import { UserService } from './service/user.service';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './_guards/auth.guards';

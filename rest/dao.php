@@ -2,6 +2,8 @@
 include "../utils.php";
 include "../config.php";
 
+$now = new DateTime('NOW', timezone_open('America/Mexico_City'));
+
 $dbConn = connect($db);
 
 function getById($dbConn, $tableName, $fildName, $id)
@@ -49,11 +51,7 @@ function getListBySql($dbConn, $query, $arrayField)
             $row = array_map('utf8_encode', $row);
             $arrayOutput[] = $row;
         }
-        if (count($arrayOutput) == 1) {
-            $output = $arrayOutput[0];
-        } elseif (count($arrayOutput) > 1) {
-            $output = $arrayOutput;
-        }
+        $output = $arrayOutput;
         //header("HTTP/1.1 200 OK");
         header('Content-Type: application/json');
         echo json_encode($output);
@@ -107,17 +105,21 @@ function insertEntity($dbConn, $tableName, $arrayInsert)
             );
             header('Content-Type: application/json');
             echo json_encode($response);
+            return true;
         } else {
             header('Content-Type: application/json');
             echo json_encode($arrayInsert);
+            return true;
         }
         
     } else {
         header("HTTP/1.1 500 No Created");
         echo $prepStatement->error;
+        return false;
     }
     if ( false===$prepStatement){
         die('execute() failed: ' . htmlspecialchars($prepStatement->error)); 
+        return false;
     }
 }
 
@@ -138,10 +140,11 @@ function insertQuietEntity($dbConn, $tableName, $arrayInsert)
         die('execute() failed: ' . htmlspecialchars($prepStatement->error)); 
     }
     if ($prepStatement->affected_rows > 0) {
-        //print_r($arrayInsert);
+        return true;
     } else {
         header("HTTP/1.1 500 No Created");
         echo $prepStatement->error;
+        return false;
     }
 }
 
@@ -163,9 +166,11 @@ function updateEntity($dbConn, $tableName, $arrayInsert)
             'id' => $postId
         );
         echo json_encode($response);
+        return true;
     } else {
         header("HTTP/1.1 304 Not Modified");
         echo $prepStatement->error;
+        return false;
     }
 
 }

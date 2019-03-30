@@ -6,8 +6,11 @@ try {
     $entityBody = file_get_contents('php://input');
     $arrayBody = (array)json_decode($entityBody);
     $table = 'envio';
+    $now = new DateTime('NOW', timezone_open('America/Mexico_City'));
 
     $method = $_SERVER['REQUEST_METHOD'];
+    $userid = $_REQUEST['userId'];
+    if($userid)
     switch ($method) {
         case 'GET':
             if (isset($_GET['guia'])) {
@@ -34,8 +37,17 @@ try {
                 $input2['guia_sq_id'] = maxGuia($dbConn, $input);
                 $input2['remi_sq_id'] = indexRemitente($dbConn, $input);
                 $input2['dest_sql_id'] = indexConsignatario($dbConn, $input);
+                $input2['estatus_id'] = 'origen';
 
-                insertEntity($dbConn, $table, $input2);
+                if(insertEntity($dbConn, $table, $input2)){
+                    $envioStausFields = array (
+                        'guia_sq_id' => $input2['guia_sq_id']
+                        ,'estatus_id' => 'origen'
+                        ,'input_date' => $now->format('Y-m-d H:i:s')
+                        ,'userid' => $userid
+                    );
+                    insertQuietEntity($dbConn, 'envio_estatus', $envioStausFields);
+                }
             }
             break;
         case 'PUT':

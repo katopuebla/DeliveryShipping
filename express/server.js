@@ -10,21 +10,32 @@ var app = express();
 const cors = require('cors')
 app.use(cors())
 
+const {db} = require('./database');
+
+// setting
+app.set('port', process.env.PORT || 3000);
+
+//Middlewares
+//   Deprecation Body Parser
+// var bodyParser = require('body-parser');
+// app.use(bodyParser.json()); // soporte para bodies codificados en jsonsupport
+// app.use(bodyParser.urlencoded({ extended: true })); // soporte para bodies codificados
+app.use(express.json()); // to understand Json in Express
+
+//Routers
+app.use('/rest/',require('./router/user.router'));
+/*
 app.get("/url", (req, res, next) => {
  res.json(["Tony","Lisa","Michael","Ginger","Food"]);
 });
 
-var bodyParser = require('body-parser');
-app.use(bodyParser.json()); // soporte para bodies codificados en jsonsupport
-app.use(bodyParser.urlencoded({ extended: true })); // soporte para bodies codificados
 
-const db = require('./database')
 app.use('/delivery', db)
 
 app.get('/', function(req, res) {
   res.send('Hello from server is working')
 })
-
+*/
 //Ejemplo: GET http://localhost:8080/items
 app.get('/items', function(req, res, next) {
   if(req.query.filter) {
@@ -65,9 +76,7 @@ app.delete('/items/:id', function(req, res) {
    res.send('Delete ' + itemId);
 });
 
-//app.listen(3000, () => {
-// console.log("Server running on port 3000");
-//});
-
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);	
+// Starting
+app.listen(app.get('port'), () => {
+  console.log(`Running on`, app.get('port'));	
+});

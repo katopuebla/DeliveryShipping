@@ -6,8 +6,16 @@ try {
     $entityBody = file_get_contents('php://input');
     $arrayBody = (array)json_decode($entityBody);
     $table = 'recepcion_envio';
+    $now = new DateTime('NOW', timezone_open('America/Mexico_City'));
+    $fields = array(
+        'guia_sq_id' => '',
+        'persona_recibe' => '',
+        'identificacion' => ''
+    );
 
     $method = $_SERVER['REQUEST_METHOD'];
+    $userid = $_REQUEST['userId'];
+    if($userid)
     switch ($method) {
         case 'GET':
             if (isset($_GET['guia'])) {
@@ -32,7 +40,28 @@ try {
             break;
         case 'POST':
             $input = $arrayBody;
-            insertEntity($dbConn, $table, $input);
+            $fields['guia_sq_id'] = $input['guia'];
+            $fields['persona_recibe'] = $input['recibe'];
+            $fields['identificacion'] = $input['identificacion'];
+            $userid = $_REQUEST['userId'];
+            $guia = $fields['guia_sq_id'] ;
+            if($userid){
+                if(insertQuietEntity($dbConn, $table, $fields)) {
+                    $envioStausFields = array (
+                        'guia_sq_id' => $guia
+                        ,'estatus_id' => 'entregado'
+                        ,'input_date' => $now->format('Y-m-d H:i:s')
+                        ,'userid' => $userid
+                    );
+                    if(insertQuietEntity($dbConn, 'envio_estatus', $envioStausFields)) {
+                        $enviofields = array (
+                            'guia_sq_id' => $guia
+                            , 'estatus_id' => 'entregado'
+                        );
+                        updateEntity($dbConn, "envio", $enviofields);
+                    }
+            }
+            };
             break;
 /*        case 'PUT':
             $input = $arrayBody;

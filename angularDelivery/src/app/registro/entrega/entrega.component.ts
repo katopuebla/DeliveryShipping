@@ -3,6 +3,7 @@ import { EnvioDto, Sources, EnvioEngrega } from '../../dto/envios';
 import { ShowErrorsComponent } from '../../show-errors/show-errors.component';
 import { BarecodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 import { RecepcionService } from 'src/app/service/recepcion.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-entrega',
@@ -14,6 +15,7 @@ export class EntregaComponent implements OnInit, OnDestroy {
   @ViewChild(BarecodeScannerLivestreamComponent)
   barecodeScanner: BarecodeScannerLivestreamComponent;
 
+  isSpinner = false;
   barcodeValue;
   isScan = false;
 
@@ -28,80 +30,98 @@ export class EntregaComponent implements OnInit, OnDestroy {
   consignatario: Sources = {};
 
 
-  constructor(private _service: RecepcionService) { }
+  constructor(private _service: RecepcionService
+    , private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getList();
   }
 
   getList() {
+    this.isSpinner = true;
     this._service.getListGuia()
-      .subscribe( data => {
+      .subscribe(data => {
+        this.isSpinner = false;
         this.envios = data;
+      }, err => {
+        this.isSpinner = false;
+        this.snackBar.open('No se cargó la lista', 'Error', {
+          duration: 2000,
+        });
       });
   }
 
   getConsignee(consigneeId) {
     this._service.getConsignee(consigneeId)
-      .subscribe( data => {
+      .subscribe(data => {
         this.consignatario = data;
       });
   }
-   ngOnDestroy(): void {
+  ngOnDestroy(): void {
 
-   }
+  }
 
-   openScanner() {
+  openScanner() {
     this.barecodeScanner.start();
     this.isScan = true;
-   }
+  }
 
-   closeScanner() {
+  closeScanner() {
     this.barecodeScanner.stop();
     this.isScan = false;
-   }
+  }
 
-   onValueChanges(result) {
+  onValueChanges(result) {
     this.barcodeValue = result.codeResult.code;
     this.envioentrega.guia = result.codeResult.code;
-}
+  }
 
   saveReceive() {
-   /* console.log('saveReceive');
-    console.log('saveReceive Envio '+ this.envio.guia);
-    if(this._service.save(this.envio)){
-        this.messages = 'folio ' + this.envio.guia;
-        this.isSuccess = true;
-        this.isError = false;
-        // inicializar campos
-        this.envio = {};
-    } else {
-      this.messagesError = " Llenar todos los campos";
-      this.isError = true;
-      this.isSuccess = false;
-    }*/
+    try {
+      if (this.envioentrega) {
+        this.isSpinner = true;
+        this._service.saveReceiped(this.envioentrega).subscribe(
+          _resp => {
+            this.getList();
+            this.isSpinner = false;
+            this.snackBar.open('confirmado', 'Info', {
+              duration: 2000,
+            });
+          }, _err => {
+            this.isSpinner = false;
+            this.snackBar.open('No se guardó el envío', 'Error', {
+              duration: 5000,
+            });
+          });
+      }
+    } catch (e) {
+      this.isSpinner = false;
+      this.snackBar.open('No se guardó el envío', 'Error', {
+        duration: 5000,
+      });
+    }
   }
 
   selected(event) {
-   // var entrega_id = event;
+    // var entrega_id = event;
     console.log(event);
     this.isSuccess = false;
     this.isError = false;
 
-    this.envio = this.envios.find ( data => data.guia_sq_id === event );
+    this.envio = this.envios.find(data => data.guia_sq_id === event);
 
     if (this.envio) {
       this._service.getConsignee(this.envio.dest_sql_id)
-        .subscribe( data => {
+        .subscribe(data => {
           this.consignatario = data;
         });
     }
   }
 
-   onFileChange(event) {
-     console.log('onFileChange');
-     const file = event.target.files[0];
-     //this.subscription = this.qrReader.decode(file)
-       // .subscribe(decodedString => console.log(decodedString));
-   }
+  onFileChange(event) {
+    console.log('onFileChange');
+    const file = event.target.files[0];
+    //this.subscription = this.qrReader.decode(file)
+    // .subscribe(decodedString => console.log(decodedString));
+  }
 }

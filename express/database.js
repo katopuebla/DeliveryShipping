@@ -1,34 +1,28 @@
-const express = require('express')
 const mongoose = require('mongoose');
 
+// const MONGO_URI = process.env.DEV_DB;
+const MONGO_URI = 'mongodb://kato:kato123@ds045679.mlab.com:45679/katobase';
+// const MONGO_URI = 'mongodb://delivery-mongodb:27017/katobase'; // local db
+// const MONGO_URI = 'mongodb://localhost:27017/katobase'; // local db
+
+// Connect to MongoDB
+mongoose.connect(MONGO_URI)
+.then(db => console.log('conectado'))
+.catch(err => console.error(err));
+
+module.exports = mongoose;
+
 // const jwt = require('jsonwebtoken')
-const router = express.Router()
 
 
-router.get('/', (req, res) => {
-    res.send('From API route')
-})
 
 //   Mongo DB with mongoose js
 const Login = require('./model/login')
 const Envio = require('./model/envio')
 
-// const MONGO_URI = process.env.DEV_DB;
-//const MONGO_URI = 'mongodb://kato:kato123@ds045679.mlab.com:45679/katobase';
-const MONGO_URI = 'mongodb://delivery-mongodb:27017/katobase'; // local db
-//const MONGO_URI = 'mongodb://localhost:27017/katobase'; // local db
 
 mongoose.Promise = global.Promise;
 
-// Connect to MongoDB
-mongoose.connect(MONGO_URI)
-.then(() => {
-  console.log('conectado')
-}, err =>{
-  console.log('falla en la conexion');
-  console.log(err.stack);
-  
-});
 
 /*
 function verifyToken(req, res, next) {
@@ -48,6 +42,7 @@ function verifyToken(req, res, next) {
 }
 */
 
+/*
 router.post('/register', (req, res) => {
     let userData = req.body
     console.log(userData);
@@ -216,4 +211,3 @@ router.get('/special', verifyToken, (req, res) => {
     res.json(events)
 })
 */
-module.exports = router

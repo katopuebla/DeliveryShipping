@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 
-const schema = mongoose.Schema
-const EnvioSchema = new schema({
+const {Schema} = mongoose;
+
+const EnvioSchema = new Schema({
 	guiaSqId: String,
 	remitenteSchema: [{
 	Id: Number,
@@ -24,7 +25,7 @@ const EnvioSchema = new schema({
     largo: Number,
     servicio: String,
 })
-module.exports = mongoose.model('envio',EnvioSchema, 'envio')
+module.exports = mongoose.model('envio',EnvioSchema);
 /*
 const RemitenteSchema = new schema({
 	Id: Number,

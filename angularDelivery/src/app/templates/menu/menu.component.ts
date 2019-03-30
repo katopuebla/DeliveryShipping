@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 
 
@@ -9,25 +9,12 @@ import { AuthService } from '../../service/auth.service';
 })
 export class MenuComponent implements OnInit {
 
+  @Output() public sidenavToggle = new EventEmitter();
+
   constructor(public _auth: AuthService) {
-    //console.debug('constructor');
+    // console.debug('constructor');
   }
 
   ngOnInit() {
   }
-}
-
-@Component({
-  selector: 'app-about',
-  template: '<h2>About</h2>'
-})
-export class AboutComponent implements OnInit {
-
-  constructor() {
-   // console.debug('constructor');
-  }
-
-  ngOnInit() {
-  }
-
 }

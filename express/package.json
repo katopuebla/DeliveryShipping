@@ -6,18 +6,20 @@
 	"scripts": {
 		"build": "webpack --mode development",
 		"start": "node .",
+		"dev": "nodemon server.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "Antonio <katopuebla@gmail.com>",
 	"license": "ISC",
 	"dependencies": {
-		"express": "^4.16.1",
 		"cors": "^2.8.5",
-		"mongoose": "^5.4.1"
+		"express": "^4.16.1",
+		"mongoose": "^5.4.20"
 	},
 	"devDependencies": {
-		"webpack": "^4.28.4",
-		"webpack-cli": "^3.2.1",
+		"nodemon": "^1.18.10",
+		"webpack": "^4.29.6",
+		"webpack-cli": "^3.3.0",
 		"webpack-node-externals": "^1.7.2"
 	}
 }
